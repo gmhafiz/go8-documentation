@@ -8,7 +8,6 @@
 * [Swagger](swagger.md)
 * [Structure](structure.md)
 * [Testing](testing.md)
-* [Todo](todo.md)
 * [Acknowledgements](acknowledgements.md)
 * [Appendix](appendix.md)
 
