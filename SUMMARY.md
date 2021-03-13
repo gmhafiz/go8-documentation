@@ -2,9 +2,10 @@
 
 * [Introduction](README.md)
 * [Quick Start](quick-start.md)
+* [Tooling](tooling.md)
 * [Migration](migration.md)
 * [Run](run-1.md)
-* [Tooling](tooling.md)
+* [Build](build.md)
 * [Swagger](swagger.md)
 * [Structure](structure.md)
 * [Testing](testing.md)

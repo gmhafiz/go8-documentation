@@ -15,19 +15,19 @@ Fill in your database credentials in `.env` by making a copy of `env.example` fi
 cp env.example .env
 ```
 
-Have a database ready either by installing them yourself or the following command. the `docker-compose.yml` will use database credentials set in `.env` file which is initialized by the previous step. Optionally, you may want redis as well.
+Have a database ready either by installing them yourself or the following command. The `docker-compose.yml` will use database credentials set in `.env` file which is initialized by the previous step. Optionally, you may want redis as well.
 
 ```text
 docker-compose up -d postgres
 ```
 
-Once the database is up you may run the migration with,
+Once the database is up you may run the migration with
 
 ```text
 go run cmd/extmigrate up
 ```
 
-Run the API with
+Finally, run the API with
 
 ```text
 go run cmd/go8/main.go
@@ -49,6 +49,6 @@ You will see the address the API is running at as well as all registered routes.
 To use, follow examples in the `examples/` folder
 
 ```text
-curl --location --request GET 'http://localhost:3080/api/v1/books'
+curl --request GET --location 'http://localhost:3080/api/v1/books'
 ```
 
