@@ -32,7 +32,9 @@ This approach allows code completion when accessing your configurations.
 
 ### **.env file**
 
-The `.env` file defines settings for various parts of the API including the database credentials. If you choose to export the variables into environment variables for example:
+The `.env` file defines settings for various parts of the API including the database credentials. 
+
+`.env` is optional. You may export variables like:
 
 ```text
 export DB_DRIVER=postgres
@@ -79,6 +81,8 @@ To add a new type of configuration, for example for Elasticsearch
    ELASTICSEARCH_PASS=password
    ```
 
+#### Connection Pool
+
 Limiting the number of connection pool avoids ['time-slicing' of the CPU](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing). Use the following formula to determine a suitable number
 
 ```text
@@ -117,7 +121,7 @@ Interfaces for both use case and repository are on its own file under the `healt
 
 Starting with `internal/domain/health/repository.go`
 
-```text
+```go
 type Repository interface {
 	Readiness() error
 }
@@ -125,7 +129,7 @@ type Repository interface {
 
 is implemented in a package called `postgres` in `internal/domain/health/repository/postgres/postgres.go`
 
-```text
+```go
 func (r *repository) Readiness() error {
 	return r.db.Ping()
 }
@@ -146,11 +150,73 @@ This layer is responsible in handling request from outside world and into the `u
 
 Route API are defined in `RegisterHTTPEndPoints` in their respective `register.go` file.
 
+### Initialize Domain
+
+Finally, a domain is initialized by wiring up all dependencies in `server/initDomains.go`. Here, any dependencies can be injected such as custom logger
+
+```go
+func (s *Server) initBook() {
+	newBookRepo := bookRepo.New(s.GetDB())
+	newBookUseCase := bookUseCase.New(newBookRepo)
+	bookHandler.RegisterHTTPEndPoints(s.router, newBookUseCase)
+}
+```
+
+### Models
+
+All models are placed inside `/internal/models` folder. Putting all model files in one place is compatible with [sqlboiler](https://github.com/volatiletech/sqlboiler). Sqlboiler allows us to generate model go files automatically by reading the database schema.
+
+Thus, `sqlboiler` needs to know database credentials. I uses `sqlboiler.toml` to read necessary information according to which database you use. Copy the example toml file to `sqlboiler.toml`
+
+```go
+cp sqlboiler.toml.example sqlboiler.toml
+```
+
+#### Generate Models
+
+Using `task`, install  `sqlboiler` with
+
+```go
+task install-sqlboiler
+```
+
+Generate new model files with
+
+```go
+task gen-orm
+```
+
+This command replaces exsting model files, add soft deletes `deleted_at` as well as adding an extra struct tag called `db`.
+
+Without `task`
+
+```go
+sqlboiler --wipe --add-soft-deletes -t db psql
+```
+
+### 
+
+### Middleware
+
+A middleware is just a handler that returns a handler as can bee seen in the `internal/middleware/cors.go`
+
+```go
+func Cors(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// do something before going into Handler
+
+		next.ServerHTTP(w, r)
+		
+		// do something after handler has been served
+	}
+}
+```
+
 ### Dependency Injection
 
 How does dependency injection happens? It starts with `InitDomains()` method.
 
-```text
+```go
 healthHandler.RegisterHTTPEndPoints(s.router, usecase.NewHealthUseCase(postgres.NewHealthRepository(s.db)))
 ```
 
@@ -159,4 +225,10 @@ The repository gets access a pointer to `sql.DB` to perform database operations.
 ### Libraries
 
 Initialization of external libraries are located in `third_party/`
+
+since `sqlx` is a third party library, it is initialized in `/third_party/database/sqlx.go`
+
+### Utility
+
+Common tasks like retrieving query parameters or `filters` are done inside `utility` folder. It serves as one place abstract functionalities used across packages.
 
