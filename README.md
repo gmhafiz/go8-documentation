@@ -47,6 +47,7 @@ This is the idea behind [Clean Architecture](https://blog.cleancoder.com/uncle-b
 
 This kit is composed of standard Go library together with some well-known libraries to manage things like router, database query and migration support.
 
+* [x] Framework-less and net/http compatible handler
 * [x] Router/Mux with [Chi Router](https://github.com/go-chi/chi)
 * [x] Database Operations with [sqlx](https://github.com/jmoiron/sqlx)
 * [x] Database migration with [golang-migrate](https://github.com/golang-migrate/migrate/)
