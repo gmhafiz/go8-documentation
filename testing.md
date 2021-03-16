@@ -29,7 +29,7 @@ TODO
 To perform a unit test, it needs \(depends\) a repository. However, as a unit test, we do not want to connect to a real database - we just want to isolate this use case file To solve this, one approach is to use a mocking library that can generate code for us. The library, [gomock](https://github.com/golang/mock/gomock), can be installed with 
 
 ```text
-task install-gomock
+task install:gomock
 ```
 
 Once installed, a mock file can be generated:
@@ -70,7 +70,7 @@ DOCKERTEST_SSL_MODE=disable
 A container may not close properly when a unit test fails. A helper script is added to stop any container by port.
 
 ```text
-task stop-dockertest
+task stop:dockertest
 ```
 
 or
@@ -97,7 +97,7 @@ docker exec -t go8_container_test "/home/appuser/app/e2e"
 Stop container
 
 ```text
-task dockertest-stop
+task dockertest:stop
 ```
 
 or

@@ -177,16 +177,16 @@ cp sqlboiler.toml.example sqlboiler.toml
 Using `task`, install  `sqlboiler` with
 
 ```go
-task install-sqlboiler
+task install:sqlboiler
 ```
 
 Generate new model files with
 
 ```go
-task gen-orm
+task gen:orm
 ```
 
-This command replaces exsting model files, add soft deletes `deleted_at` as well as adding an extra struct tag called `db`.
+This command replaces existing model files, add soft deletes `deleted_at` as well as adding an extra struct tag called `db`.
 
 Without `task`
 

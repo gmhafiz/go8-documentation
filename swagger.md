@@ -6,7 +6,7 @@ Swagger UI allows you to play with the API from a browser
 
 ![swagger UI](https://github.com/gmhafiz/go8/raw/master/assets/swagger.png)
 
-Edit `cmd/go8/go8.go` `main()` function host and BasePath
+Edit `cmd/go8/go8.go` `main()` function for both `host` and `BasePath`
 
 ```text
 // @host localhost:3080
@@ -25,7 +25,7 @@ Access at
 http://localhost:3080
 ```
 
-The command `swag init` scans the whole directory and looks for [swagger's declarative comments](https://github.com/swaggo/swag#declarative-comments-format) format.
+The command `task swagger` runs`swag init` command that scans the whole directory and looks for [swagger's declarative comments](https://github.com/swaggo/swag#declarative-comments-format) format.
 
 Custom theme is obtained from [https://github.com/ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes)
 

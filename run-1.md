@@ -21,14 +21,14 @@ go run cmd/go8/main.go
 You can build a docker image with the app with its config files. Docker needs to be installed beforehand.
 
 ```text
- task docker-build
+ task docker:build
 ```
 
 Run the following command to build a container from this image. `--net=host` tells the container to use local's network so that it can access host database.
 
 ```text
 docker-compose up -d postgres # If you haven't run this from quick start 
-task docker-run
+task docker:run
 ```
 
 ### docker-compose
@@ -36,6 +36,6 @@ task docker-run
 If you prefer to use docker-compose instead, both server and the database can be run with:
 
 ```text
-task docker-compose-start
+task docker-compose:start
 ```
 

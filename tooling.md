@@ -47,7 +47,7 @@ Various tooling can be installed automatically by running which includes
 Install tools with
 
 ```text
-task install-tools
+task install:tools
 ```
 
 ## Tasks
@@ -115,7 +115,7 @@ task check
 ### Generate Model/ORM
 
 ```text
-task gen-orm
+task gen:orm
 ```
 
 ### Generate Swagger Documentation
