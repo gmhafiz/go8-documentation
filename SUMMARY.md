@@ -8,6 +8,7 @@
 * [Build](build.md)
 * [Swagger](swagger.md)
 * [Structure](structure.md)
+* [Request Life Cycle](request-life-cycle.md)
 * [Testing](testing.md)
 * [Acknowledgements](acknowledgements.md)
 * [Appendix](appendix.md)
